@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Academia Online | Consultora Profesional</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(180deg, #f5f7fa 0%, #c3d9f5 100%);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: #ffffffee;
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid #ddd;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-weight: 700;
+      color: #27496d;
+      font-size: 26px;
+    }
+
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #27496d;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: #3f72af;
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 40px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.activo {
+      display: block;
+    }
+
+    /* Contenido del banner dentro de inicio */
+    .banner {
+      background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c') center/cover no-repeat;
+      color: white;
+      padding: 120px 40px;
+      text-align: center;
+      position: relative;
+      border-radius: 10px;
+      margin-bottom: 40px;
+    }
+
+    .banner::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      z-index: 0;
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .banner h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .banner p {
+      font-size: 18px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .btn-primary {
+      background: #3f72af;
+      color: white;
+      padding: 12px 24px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #27496d;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .card {
+      background: #fff;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+
+    .card-body h4 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card-body p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer {
+      background: #27496d;
+      text-align: center;
+      padding: 20px 40px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    /* Estilos para el formulario mejorado */
+    form#form-unete {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    form#form-unete label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    form#form-unete input[type='text'],
+    form#form-unete input[type='email'] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 16px;
+      border: 1.5px solid #3f72af;
+      border-radius: 6px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    form#form-unete input[type='file'] {
+      display: none;
+    }
+
+    form#form-unete button#btn-select-file {
+      display: inline-block;
+      background-color: #3f72af;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    form#form-unete button#btn-select-file:hover {
+      background-color: #27496d;
+    }
+
+    form#form-unete #file-name {
+      font-style: italic;
+      color: #555;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    form#form-unete button[type='submit'] {
+      display: block;
+      width: 100%;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>AcademiaPro</h1>
+    <nav>
+      <a onclick="mostrarSeccion('inicio')">Inicio</a>
+      <a onclick="mostrarSeccion('cursos')">Cursos</a>
+      <a onclick="mostrarSeccion('info')">Quiénes Somos</a>
+      <a onclick="mostrarSeccion('contacto')">Contacto</a>
+      <a onclick="mostrarSeccion('unete')">Únete a nuestro equipo</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="section activo">
+      <div class="banner">
+        <div class="banner-content">
+          <h2>Transformá tu futuro profesional</h2>
+          <p>
+            Inscribite en nuestros cursos online certificados, creados por expertos y diseñados para el éxito real.
+          </p>
+          <button class="btn-primary">Explorar Cursos</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="cursos" class="section">
+      <h3>Cursos Populares</h3>
+      <div class="card-container">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1612831661549-6d61dd994f79" alt="Curso Excel" />
+          <div class="card-body">
+            <h4>Excel Profesional</h4>
+            <p>Aprendé desde funciones básicas hasta dashboards avanzados.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507" alt="Curso Liderazgo" />
+          <div class="card-body">
+            <h4>Liderazgo Moderno</h4>
+            <p>Gestioná equipos de alto rendimiento con herramientas actuales.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1590608897129-79da98d159cc" alt="Curso Inglés" />
+          <div class="card-body">
+            <h4>Inglés para Negocios</h4>
+            <p>Comunicá con confianza en entornos profesionales internacionales.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1573164574237-157000f2f898" alt="Curso Redes" />
+          <div class="card-body">
+            <h4>Marketing en Redes</h4>
+            <p>Dominá Instagram, TikTok, YouTube y convertí seguidores en clientes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="info" class="section">
+      <h3>¿Por qué elegirnos?</h3>
+      <p>
+        Con más de 10 años en formación digital, ofrecemos capacitaciones accesibles, dinámicas y actualizadas. Nuestro equipo docente está compuesto por profesionales en activo que garantizan conocimientos aplicables al mercado actual.
+      </p>
+    </section>
+
+    <section id="contacto" class="section">
+      <h3>Contacto</h3>
+      <p>¿Querés hacer una consulta? Escribinos a <strong>info@academiapro.com</strong> o seguinos en nuestras redes sociales.</p>
+    </section>
+
+    <section id="unete" class="section">
+      <h3>Únete a nuestro equipo</h3>
+      <form
+        id="form-unete"
+        action="https://formsubmit.co/ornaghips4@gmail.com"
+        method="POST"
+        enctype="multipart/form-data"
+      >
+        <label for="name">Tu nombre</label>
+        <input type="text" name="name" id="name" placeholder="Tu nombre" required />
+
+        <label for="email">Tu email</label>
+        <input type="email" name="email" id="email" placeholder="Tu email" required />
+
+        <label for="cv-upload">Subí tu CV</label>
+        <input
+          type="file"
+          name="CV"
+          id="cv-upload"
+          accept=".pdf,.doc,.docx"
+          required
+          onchange="document.getElementById('file-name').textContent = this.files[0]?.name || 'Ningún archivo seleccionado';"
+        />
+
+        <button
+          type="button"
+          id="btn-select-file"
+          onclick="document.getElementById('cv-upload').click();"
+          aria-label="Seleccionar archivo CV"
+        >
+          Seleccionar archivo
+        </button>
+        <span id="file-name">Ningún archivo seleccionado</span>
+
+        <input type="hidden" name="_captcha" value="false" />
+        <button type="submit" class="btn-primary">Enviar CV</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AcademiaPro - Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function mostrarSeccion(seccionId) {
+      document.querySelectorAll('.section').forEach((sec) => {
+        sec.classList.remove('activo');
+      });
+      document.getElementById(seccionId).classList.add('activo');
+      window.scrollTo(0, 0);
+    }
+  </script>
+</body>
+
+</html>
