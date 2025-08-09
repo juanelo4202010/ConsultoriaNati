@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Academia Online | Consultora Profesional</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     body {
       margin: 0;
@@ -17,41 +17,115 @@
       flex-direction: column;
     }
 
-    header {
-      background-color: #ffffffee;
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid #ddd;
-      padding: 20px 40px;
+    /* Barra superior oscura con redes */
+    .top-bar {
+      background: #222;
+      color: #eee;
+      font-size: 14px;
+      padding: 6px 40px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
+      gap: 20px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .top-bar a {
+      color: #eee;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .top-bar a:hover {
+      color: #ff4081;
+    }
+
+    /* Header oscuro con menú */
+    header {
+      background: #1c1c1c;
+      color: white;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      padding: 15px 40px;
       position: sticky;
       top: 0;
       z-index: 1000;
+      font-family: 'Montserrat', sans-serif;
       flex-shrink: 0;
     }
 
-    header h1 {
-      font-weight: 700;
-      color: #27496d;
-      font-size: 26px;
+    .logo {
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: 2px;
+      cursor: default;
+      user-select: none;
     }
 
-    nav a {
-      margin-left: 20px;
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: white;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
       text-decoration: none;
-      color: #27496d;
-      font-weight: 500;
       cursor: pointer;
+      transition: color 0.3s ease;
     }
 
-    nav a:hover {
-      color: #3f72af;
+    nav ul li a:hover {
+      color: #ff4081;
     }
+
+    /* Menú hamburguesa para móvil */
+    .menu-toggle {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+      user-select: none;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 54px; /* altura barra superior + header */
+        right: 0;
+        background: #1c1c1c;
+        height: calc(100vh - 54px);
+        width: 220px;
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 20px;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 2000;
+      }
+
+      nav ul.show {
+        transform: translateX(0);
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    /* Mantenemos tu CSS original para el contenido */
 
     main {
       flex-grow: 1;
       padding: 40px;
+      font-family: 'Inter', sans-serif;
     }
 
     .section {
@@ -165,7 +239,7 @@
       flex-shrink: 0;
     }
 
-    /* Estilos para el formulario mejorado */
+    /* Formulario */
     form#form-unete {
       max-width: 400px;
       margin: 0 auto;
@@ -226,14 +300,24 @@
 </head>
 
 <body>
+  <!-- Barra superior con redes sociales -->
+  <div class="top-bar">
+    <a href="#" aria-label="Facebook" target="_blank" rel="noopener noreferrer">Facebook</a>
+    <a href="#" aria-label="Instagram" target="_blank" rel="noopener noreferrer">Instagram</a>
+    <a href="#" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+  </div>
+
   <header>
-    <h1>AcademiaPro</h1>
+    <div class="logo">AcademiaPro</div>
     <nav>
-      <a onclick="mostrarSeccion('inicio')">Inicio</a>
-      <a onclick="mostrarSeccion('cursos')">Cursos</a>
-      <a onclick="mostrarSeccion('info')">Quiénes Somos</a>
-      <a onclick="mostrarSeccion('contacto')">Contacto</a>
-      <a onclick="mostrarSeccion('unete')">Únete a nuestro equipo</a>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+      <ul id="menu">
+        <li><a onclick="mostrarSeccion('inicio')">Inicio</a></li>
+        <li><a onclick="mostrarSeccion('cursos')">Cursos</a></li>
+        <li><a onclick="mostrarSeccion('info')">Quiénes Somos</a></li>
+        <li><a onclick="mostrarSeccion('contacto')">Contacto</a></li>
+        <li><a onclick="mostrarSeccion('unete')">Únete a nuestro equipo</a></li>
+      </ul>
     </nav>
   </header>
 
@@ -244,7 +328,7 @@
           <h2>Transformá tu futuro profesional</h2>
           <p>
             En AcademiaPro valoramos el desarrollo profesional y el aprendizaje continuo.
-Te invitamos a enviar tu currículum vitae para formar parte de nuestro equipo y crecer juntos en un entorno de excelencia académica y profesional.
+            Te invitamos a enviar tu currículum vitae para formar parte de nuestro equipo y crecer juntos en un entorno de excelencia académica y profesional.
           </p>
           <button class="btn-primary">Explorar Cursos</button>
         </div>
@@ -348,6 +432,17 @@ Te invitamos a enviar tu currículum vitae para formar parte de nuestro equipo y
       });
       document.getElementById(seccionId).classList.add('activo');
       window.scrollTo(0, 0);
+
+      // Si el menú está abierto en móvil, cerrar al click
+      const menu = document.getElementById('menu');
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+      }
+    }
+
+    function toggleMenu() {
+      const menu = document.getElementById('menu');
+      menu.classList.toggle('show');
     }
   </script>
 </body>
